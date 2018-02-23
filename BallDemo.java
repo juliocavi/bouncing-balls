@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Class BallDemo - a short demonstration showing animation with the 
@@ -11,6 +13,7 @@ import java.awt.Color;
 public class BallDemo   
 {
     private Canvas myCanvas;
+    private ArrayList<BouncingBall> ballsList;
 
     /**
      * Create a BallDemo object. Creates a fresh canvas and makes it visible.
@@ -23,7 +26,7 @@ public class BallDemo
     /**
      * Simulate two bouncing balls
      */
-    public void bounce()
+    public void bounce(int balls)
     {
         int ground = 400;   // position of the ground line
 
@@ -32,21 +35,25 @@ public class BallDemo
         // draw the ground
         myCanvas.drawLine(50, ground, 550, ground);
 
+        ballsList = new ArrayList<>(balls);
+        
         // crate and show the balls
-        BouncingBall ball = new BouncingBall(50, 50, 16, Color.BLUE, ground, myCanvas);
-        ball.draw();
-        BouncingBall ball2 = new BouncingBall(70, 80, 20, Color.RED, ground, myCanvas);
-        ball2.draw();
-
+        for(int i=0; i<balls; i++){
+            BouncingBall ball = new BouncingBall(50+(25*i), 50, 20, Color.BLUE, ground, myCanvas);
+            ball.draw();
+            ballsList.add(ball);
+        }
+        
         // make them bounce
         boolean finished =  false;
         while(!finished) {
             myCanvas.wait(50);           // small delay
-            ball.move();
-            ball2.move();
-            // stop once ball has travelled a certain distance on x axis
-            if(ball.getXPosition() >= 550 || ball2.getXPosition() >= 550) {
-                finished = true;
+            for(int i=0; i<balls; i++){
+                ballsList.get(i).move();
+                // stop once ball has travelled a certain distance on x axis
+                if(ballsList.get(i).getXPosition() >= 550){
+                    finished = true;
+                }
             }
         }
     }

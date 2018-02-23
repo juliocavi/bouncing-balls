@@ -36,14 +36,20 @@ public class BallDemo
         myCanvas.drawLine(50, ground, 550, ground);
 
         ballsList = new ArrayList<>(balls);
-        
+        Random random = new Random();
+
         // crate and show the balls
         for(int i=0; i<balls; i++){
-            BouncingBall ball = new BouncingBall(50+(25*i), 50, 20, Color.BLUE, ground, myCanvas);
+            int radio = 10 + random.nextInt(20);
+            int color1 = random.nextInt(256);
+            int color2 = random.nextInt(256);
+            int color3 = random.nextInt(256);
+            Color color = new Color(color1, color2, color3);
+            BouncingBall ball = new BouncingBall(50+(25*i), 50, radio, color, ground, myCanvas);
             ball.draw();
             ballsList.add(ball);
         }
-        
+
         // make them bounce
         boolean finished =  false;
         while(!finished) {

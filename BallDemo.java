@@ -44,8 +44,10 @@ public class BallDemo
             int color1 = random.nextInt(256);
             int color2 = random.nextInt(256);
             int color3 = random.nextInt(256);
+            int positionX = random.nextInt(150);
+            int positionY = random.nextInt(150);
             Color color = new Color(color1, color2, color3);
-            BouncingBall ball = new BouncingBall(50+(25*i), 50, radio, color, ground, myCanvas);
+            BouncingBall ball = new BouncingBall(positionX, 50, radio, color, ground, myCanvas);
             ball.draw();
             ballsList.add(ball);
         }
